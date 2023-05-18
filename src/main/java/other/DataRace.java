@@ -25,7 +25,6 @@ public class DataRace {
 
 	public static int request4(){
 		arr4.add("Request 4");
-        System.out.println("I AM REQUEST 4");
         int size=arr4.size();
         int hashcode=arr4.hashCode();
 		return size;
