@@ -8,9 +8,7 @@ public class DataRaceTest {
     public void DataRaceTest(){
 	    ti = new DataRace();
     	buggy = false;
-        //System.out.println("Hello ");
     }
-
     @Test
     public void test1(){
         run();
@@ -18,6 +16,15 @@ public class DataRaceTest {
 		    System.out.println("Bug Found .. ");
     	}
     }
+
+
+    /*@Test
+    public void test2(){
+        run();
+	    if(buggy){
+		    System.out.println("Bug Found for API .. ");
+    	}
+    }*/
 
     public void run() {
 	    int threadsNum = 3;
@@ -38,7 +45,8 @@ public class DataRaceTest {
 
     private class TestThread extends Thread {
         public void run() {
-	        String[] rt = ti.Request3();
+	        String[] rt = ti.request3();
+	        int rt4 = ti.request4();
     	    // Check if elements returned by buggy method is null.
 	        // It has probability to be null at buggy version.
 	        for (String s : rt) {
@@ -49,6 +57,13 @@ public class DataRaceTest {
     	         throw new NullPointerException();					
 	            }
             }
+
+    	    if (rt4 < 1) {
+    	      buggy = true;
+	          System.out.println("buggy in API..........");
+	          //buggy = true;
+    	     throw new NullPointerException();					
+	        }
 	   }
     }
 }
